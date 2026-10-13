@@ -1,4 +1,5 @@
-// The 30 task specs. generate.js turns each into a concrete task (entities
+// The 40 task specs (t31-t40 are tagged 'hard': multi-step, cross-entity).
+// generate.js turns each into a concrete task (entities
 // picked deterministically from the seeded world) and writes tasks.json.
 export const TASK_SPECS = [
   { id: 't01-reassign-nearest-hvac', kind: 'reassign_nearest', seed: 101, variant: { trade: 'hvac' } },
@@ -31,4 +32,14 @@ export const TASK_SPECS = [
   { id: 't28-offboard-technician', kind: 'deactivate_tech', seed: 128 },
   { id: 't29-swap-technicians', kind: 'swap_jobs', seed: 129 },
   { id: 't30-push-job-next-day', kind: 'move_next_day', seed: 130 },
+  { id: 't31-leave-two-days-reassign', kind: 'tech_leave_reassign', seed: 201, tags: ['hard'] },
+  { id: 't32-check-and-card-settlement', kind: 'split_settlement', seed: 202, tags: ['hard'] },
+  { id: 't33-rebill-materials-correction', kind: 'rebill_invoice', seed: 203, tags: ['hard'] },
+  { id: 't34-approve-earliest-zone-slot', kind: 'approve_earliest_zone', seed: 204, tags: ['hard'] },
+  { id: 't35-commercial-credit-hold', kind: 'commercial_credit_hold', seed: 205, tags: ['hard'] },
+  { id: 't36-move-misapplied-payment', kind: 'misapplied_payment', seed: 206, tags: ['hard'] },
+  { id: 't37-customer-moving-away', kind: 'customer_moving', seed: 207, tags: ['hard'] },
+  { id: 't38-offboard-and-reassign', kind: 'offboard_reassign', seed: 208, tags: ['hard'] },
+  { id: 't39-onboard-commercial-account', kind: 'onboard_commercial', seed: 209, tags: ['hard'] },
+  { id: 't40-complete-upsell-and-quote', kind: 'complete_upsell_quote', seed: 210, tags: ['hard'] },
 ];

@@ -70,7 +70,8 @@ test('state endpoint with include filter, actions catalogue, reports', async () 
 test('task episode over HTTP: start, act, check', async () => {
   const task = loadTasks().find((t) => t.kind === 'void_invoice');
   const list = (await call('GET', '/api/tasks')).body;
-  assert.equal(list.length, 30);
+  assert.equal(list.length, 40);
+  assert.equal(list.filter((t) => !(t.tags || []).includes('hard')).length, 30);
   assert.equal(list[0].params, undefined); // hidden from agents
   await call('POST', `/api/tasks/${task.id}/start`);
   assert.equal((await call('POST', `/api/tasks/${task.id}/check`)).body.pass, false);

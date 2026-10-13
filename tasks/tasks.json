@@ -359,5 +359,169 @@
       "jobId": "JOB-004800",
       "toDate": "2026-03-18"
     }
+  },
+  {
+    "id": "t31-leave-two-days-reassign",
+    "kind": "tech_leave_reassign",
+    "title": "Technician on leave for two days: reassign every job and notify customers on their preferred channel",
+    "tags": [
+      "hard"
+    ],
+    "seed": 201,
+    "prompt": "Technician Parker Winslow (TEC-031) is on approved leave on 2026-03-14 and 2026-03-16. Every job assigned to Parker Winslow on those two dates must be handed to a different qualified technician at the same date and start time. For each job pick the nearest technician (shortest distance from the technician's home base to the job location) among those free for that job's slot; if two jobs compete for the same technician, any assignment works as long as no strictly nearer technician is left free for a job's slot. Then notify each affected customer about their job's change on the customer's preferred channel (SMS if they prefer text messages, otherwise email), referencing the job. Parker Winslow's jobs on other dates and all other jobs must not change, and do not message anyone else.",
+    "params": {
+      "techId": "TEC-031",
+      "dates": [
+        "2026-03-14",
+        "2026-03-16"
+      ]
+    }
+  },
+  {
+    "id": "t32-check-and-card-settlement",
+    "kind": "split_settlement",
+    "title": "Settle a customer account with one check applied oldest-first and card for the rest",
+    "tags": [
+      "hard"
+    ],
+    "seed": 202,
+    "prompt": "Omar Kowalczyk (CUS-00411) settled their whole account today. They mailed check #2303 for $2,370.43 and paid everything else by credit card over the phone. Apply the check to their open invoices (status sent or partially paid) in order of oldest due date first (ties: lower invoice number first): each invoice takes as much of the check as it needs before the next one gets any. Record one payment with method \"check\" per invoice the check touches, with the check number 2303 in the payment note. Then pay the remaining balance of every open invoice with method \"card\", and send the customer an email receipt for each card payment. When you are done every invoice that was open must be paid in full. Do not touch draft or void invoices, or any other customer's account.",
+    "params": {
+      "customerId": "CUS-00411",
+      "checkNo": "2303",
+      "checkCents": 237043
+    }
+  },
+  {
+    "id": "t33-rebill-materials-correction",
+    "kind": "rebill_invoice",
+    "title": "Correct a mis-billed, partially paid invoice: refund, void, re-issue, send and re-apply the payment",
+    "tags": [
+      "hard"
+    ],
+    "seed": 203,
+    "prompt": "Invoice INV-02859 for Gray Winslow (CUS-00545), job JOB-003128, was mis-billed: the \"Materials & parts\" line was entered at $50.00 but should be $75.00. Every other line is correct. The customer already paid $109.00 by check (payment PAY-02763). Fix the billing: refund payment PAY-02763, void invoice INV-02859 with reason \"billing error\", create a new invoice for job JOB-003128 with the same line items except the materials line at $75.00, send the new invoice to the customer by email, and re-apply the customer's $109.00 to the new invoice as one payment with method \"check\". Do not change any other invoice or payment.",
+    "params": {
+      "invoiceId": "INV-02859",
+      "paymentId": "PAY-02763",
+      "newPartsCents": 7500
+    }
+  },
+  {
+    "id": "t34-approve-earliest-zone-slot",
+    "kind": "approve_earliest_zone",
+    "title": "Approve an estimate and book the earliest slot with a technician from the same zone",
+    "tags": [
+      "hard"
+    ],
+    "seed": 204,
+    "prompt": "Yilmaz Self Storage (CUS-00078) approved estimate EST-00673 (\"Blower motor replacement\", $686.40) for 9200 Tamarack Blvd (East zone). Record the approval, set the resulting job's priority to high, and book it at the earliest possible appointment from 2026-03-10 onward: start times on the half-hour grid, no Sundays (the office is closed), and only a technician whose home zone is East (the same zone as the job site) who is qualified and free for the job's full duration within their shift. If several such technicians are free at that earliest date and time, any of them is fine. Then send the customer an SMS confirmation referencing the job. Leave the customer's other estimates as they are.",
+    "params": {
+      "estimateId": "EST-00673",
+      "fromDate": "2026-03-10"
+    }
+  },
+  {
+    "id": "t35-commercial-credit-hold",
+    "kind": "commercial_credit_hold",
+    "title": "Put overdue commercial accounts on credit hold and email a reminder per overdue invoice",
+    "tags": [
+      "hard"
+    ],
+    "seed": 205,
+    "prompt": "Collections run for Bluepeak Home Systems (CO-2): find every open invoice (status sent or partially paid) of a COMMERCIAL customer whose due date is more than 30 days before today (2026-03-09), i.e. due before 2026-02-07. For each such invoice, email its customer a payment reminder referencing the invoice (refType \"invoice\", refId = invoice id). Then put each of those customers on credit hold by setting their customer notes to contain the text \"CREDIT HOLD\". Residential customers, customers of other companies and invoices not past the cutoff are out of scope: do not message them or change their records, and do not change any invoice.",
+    "params": {
+      "companyId": "CO-2",
+      "days": 30
+    }
+  },
+  {
+    "id": "t36-move-misapplied-payment",
+    "kind": "misapplied_payment",
+    "title": "Move a payment that was applied to the wrong invoice",
+    "tags": [
+      "hard"
+    ],
+    "seed": 206,
+    "prompt": "Payment PAY-03215 ($155.51 by card on 2026-03-03) from Priya Zeller (CUS-00243) was applied to invoice INV-03485 by mistake; the customer meant it for invoice INV-03631. Refund payment PAY-03215 with reason \"misapplied\", record the same amount with the same method (card) on invoice INV-03631 and send the customer an SMS receipt for that new payment. Invoice INV-03485 is open again afterwards: email the customer a reminder about it (refType \"invoice\", refId INV-03485). Do not change any other invoice or payment.",
+    "params": {
+      "paymentId": "PAY-03215",
+      "fromInvoiceId": "INV-03485",
+      "toInvoiceId": "INV-03631"
+    }
+  },
+  {
+    "id": "t37-customer-moving-away",
+    "kind": "customer_moving",
+    "title": "Customer moving away: cancel future jobs, decline open estimates, notify",
+    "tags": [
+      "hard"
+    ],
+    "seed": 207,
+    "prompt": "Morgan Lindqvist (CUS-00694) is moving out of our service area. On their account: cancel every job that is unscheduled or scheduled for a date after today (2026-03-09) with reason \"customer moved\", and email the customer a cancellation notice for each of those jobs (referencing the job). Also decline every open (draft or sent) estimate with reason \"customer moved\". Leave today's and past jobs, completed work and all invoices exactly as they are, and do not touch other customers.",
+    "params": {
+      "customerId": "CUS-00694"
+    }
+  },
+  {
+    "id": "t38-offboard-and-reassign",
+    "kind": "offboard_reassign",
+    "title": "Offboard a technician: hand future jobs to the nearest free tech (or unschedule), notify, deactivate",
+    "tags": [
+      "hard"
+    ],
+    "seed": 208,
+    "prompt": "Technician Remy Pemberton (TEC-001) leaves the company after today's shift. For every job assigned to Remy Pemberton with a date after today (2026-03-09): reassign it, keeping its date and start time, to the nearest other qualified technician (shortest distance from home base to the job location) who is free for that slot, and text (SMS) that customer about the change, referencing the job. If no qualified technician is free at that exact date and time, unschedule the job instead and email the customer that we will call to rebook, referencing the job. When all of their future jobs are handled, deactivate Remy Pemberton. Today's and past jobs, and all other jobs, stay as they are; do not message anyone else.",
+    "params": {
+      "techId": "TEC-001"
+    }
+  },
+  {
+    "id": "t39-onboard-commercial-account",
+    "kind": "onboard_commercial",
+    "title": "Onboard a commercial customer with a second site, quote, approve and book the job",
+    "tags": [
+      "hard"
+    ],
+    "seed": 209,
+    "prompt": "New commercial account for Copperline Mechanical & Electric (CO-3): \"Okafor Coffee House Partners\", phone (555) 610-1173, email ap@okaforcoffeehouse.example.org, prefers email over text. Main site: 133 Magnolia Ln (South zone). They also have a warehouse at 7092 Elm Ct (North zone) — add it as a second service location labeled \"Warehouse\". Then: create an estimate (trade: Electrical) for the Warehouse location with 1 x EV charger circuit install [EL-EVSE] and 2 x GFCI circuit install [EL-GFCI] at standard price-book prices, send it to the customer by email, and record that the customer approved it. Finally schedule the resulting job on 2026-03-14 at 08:00 with the nearest available qualified technician (shortest distance from home base to the Warehouse) and email the customer the appointment confirmation referencing the job.",
+    "params": {
+      "companyId": "CO-3",
+      "name": "Okafor Coffee House Partners",
+      "phone": "(555) 610-1173",
+      "email": "ap@okaforcoffeehouse.example.org",
+      "address": "133 Magnolia Ln",
+      "zone": "South",
+      "address2": "7092 Elm Ct",
+      "zone2": "North",
+      "trade": "electrical",
+      "items": [
+        {
+          "code": "EL-EVSE",
+          "qty": 1
+        },
+        {
+          "code": "EL-GFCI",
+          "qty": 2
+        }
+      ],
+      "date": "2026-03-14",
+      "start": 480
+    }
+  },
+  {
+    "id": "t40-complete-upsell-and-quote",
+    "kind": "complete_upsell_quote",
+    "title": "Complete a job with an extra repair, invoice + collect on the spot, and quote the follow-up",
+    "tags": [
+      "hard"
+    ],
+    "seed": 210,
+    "prompt": "The technician just finished job JOB-004450 (Plumbing: \"Pipe leak repair\" for Rowan Haddad at 9551 Magnolia Dr, scheduled 2026-03-09 09:30 with Dana Winslow (TEC-004)) and, while on site, also did a \"Main line drain clearing\" (price-book PL-DRAIN). Mark the job completed, then create its invoice with the job's existing line items plus one extra line: 1 x PL-DRAIN at the standard price-book price ($275.00). Send the invoice to the customer by SMS. The customer paid the full invoice amount by card on the spot: record that payment and text (SMS) them a receipt. Finally, quote the recommended follow-up: create an estimate at the same location for 1 x \"Sump pump replacement\" (PL-SUMP) at the price-book price and send it to the customer by email. Do not change any other job.",
+    "params": {
+      "jobId": "JOB-004450",
+      "extraCode": "PL-DRAIN",
+      "followCode": "PL-SUMP"
+    }
   }
 ]

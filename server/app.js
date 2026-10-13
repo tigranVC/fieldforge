@@ -2,6 +2,7 @@
 import express from 'express';
 import { createEngine, ACTIONS, QUERIES, DEFAULT_SEED, validateState } from '../core/index.js';
 import { loadTasks, checkTask } from '../tasks/index.js';
+import { instantiateTask } from '../tasks/generate.js';
 
 const STATE_COLLECTIONS = ['companies', 'technicians', 'customers', 'locations', 'jobs', 'estimates', 'invoices', 'payments', 'notifications', 'actionLog'];
 
@@ -106,9 +107,19 @@ export function createApp({ seed = DEFAULT_SEED } = {}) {
     const { params, ...pub } = t;
     res.json(pub);
   });
+  // Body/query `seed` (optional): run the task in another seeded world; the task
+  // is re-instantiated for that world (new entities, new prompt).
   app.post('/api/tasks/:id/start', (req, res) => {
-    const t = findTask(req.params.id);
+    let t = findTask(req.params.id);
     if (!t) return res.status(404).json({ ok: false, error: { code: 'NOT_FOUND', message: 'task not found' } });
+    const s = req.body?.seed ?? req.query.seed;
+    if (s !== undefined && s !== null && String(s) !== String(t.seed)) {
+      try {
+        t = instantiateTask(t.id, /^\d+$/.test(String(s)) ? Number(s) : String(s));
+      } catch (e) {
+        return res.status(422).json({ ok: false, error: { code: 'INVALID_PARAMS', message: e.message } });
+      }
+    }
     engine.reset(t.seed);
     activeTask = t;
     res.json({ ok: true, task: { id: t.id, seed: t.seed, prompt: t.prompt } });
@@ -116,7 +127,8 @@ export function createApp({ seed = DEFAULT_SEED } = {}) {
   app.post('/api/tasks/:id/check', (req, res) => {
     const t = findTask(req.params.id);
     if (!t) return res.status(404).json({ ok: false, error: { code: 'NOT_FOUND', message: 'task not found' } });
-    res.json({ ok: true, taskId: t.id, ...checkTask(t, engine.state) });
+    const inst = activeTask?.id === t.id ? activeTask : t; // seeded instance from /start, if any
+    res.json({ ok: true, taskId: t.id, seed: inst.seed, ...checkTask(inst, engine.state) });
   });
 
   app.use((err, req, res, next) => {

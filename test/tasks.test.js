@@ -6,9 +6,11 @@ import { buildAll } from '../tasks/generate.js';
 
 const tasks = loadTasks();
 
-test('there are 30 well-formed tasks', () => {
-  assert.equal(tasks.length, 30);
-  assert.equal(new Set(tasks.map((t) => t.id)).size, 30);
+test('there are 40 well-formed tasks (30 original + 10 tagged hard)', () => {
+  assert.equal(tasks.length, 40);
+  assert.equal(new Set(tasks.map((t) => t.id)).size, 40);
+  assert.equal(tasks.filter((t) => !(t.tags || []).includes('hard')).length, 30);
+  assert.equal(tasks.filter((t) => (t.tags || []).includes('hard')).length, 10);
   for (const t of tasks) {
     assert.equal(typeof t.id, 'string');
     assert.equal(typeof t.prompt, 'string');
