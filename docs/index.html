@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>FieldForge — field service simulator</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23e8702a'/%3E%3Cpath d='M7 12h18l-4 5h-3v6h4v3H10v-3h4v-6h-3z' fill='%23fff'/%3E%3C/svg%3E">
+</head>
+<body>
+  <aside class="sidebar">
+    <div class="brand">
+      <svg viewBox="0 0 32 32" width="30" height="30" aria-hidden="true"><rect width="32" height="32" rx="7" fill="#e8702a"/><path d="M7 12h18l-4 5h-3v6h4v3H10v-3h4v-6h-3z" fill="#fff"/></svg>
+      <div><strong>FieldForge</strong><small>service ops simulator</small></div>
+    </div>
+    <nav id="nav">
+      <a href="#/dashboard" data-route="dashboard">Dashboard</a>
+      <a href="#/dispatch" data-route="dispatch">Dispatch board</a>
+      <a href="#/jobs" data-route="jobs">Jobs</a>
+      <a href="#/customers" data-route="customers">Customers</a>
+      <a href="#/estimates" data-route="estimates">Estimates</a>
+      <a href="#/invoices" data-route="invoices">Invoices</a>
+      <a href="#/payments" data-route="payments">Payments</a>
+      <a href="#/reports" data-route="reports">Reports</a>
+      <a href="#/notifications" data-route="notifications">Notification log</a>
+      <a href="#/technicians" data-route="technicians">Technicians</a>
+      <a href="#/tasks" data-route="tasks">Agent tasks</a>
+      <a href="#/api" data-route="api">API</a>
+    </nav>
+    <div class="sim-box">
+      <div class="sim-clock" id="clock"></div>
+      <label>Seed <input id="seed-input" type="text" size="8"></label>
+      <button id="reset-btn" class="btn danger small">Reset to seed</button>
+      <div class="muted tiny" id="session-info"></div>
+    </div>
+  </aside>
+  <main>
+    <header class="topbar">
+      <h1 id="page-title">Dashboard</h1>
+      <div class="top-controls">
+        <label>Company
+          <select id="company-select"></select>
+        </label>
+      </div>
+    </header>
+    <section id="view"></section>
+  </main>
+  <div id="modal-root"></div>
+  <div id="toasts"></div>
+  <script type="module" src="app.js"></script>
+</body>
+</html>

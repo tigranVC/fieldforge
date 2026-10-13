@@ -1,0 +1,363 @@
+[
+  {
+    "id": "t01-reassign-nearest-hvac",
+    "kind": "reassign_nearest",
+    "title": "Reassign a job to the nearest free qualified technician and notify by SMS",
+    "seed": 101,
+    "prompt": "Technician Dana Xiong (TEC-039) can no longer make job JOB-004604 (HVAC: \"HVAC diagnostic visit\" for Bailey Hollis at 6651 Walnut Way, scheduled 2026-03-10 15:00 with Dana Xiong (TEC-039)). Reassign the job to the nearest available HVAC technician other than Dana Xiong — nearest means the shortest distance from the technician's home base to the job location — keeping the same date and start time. Then notify the customer of the change by SMS.",
+    "params": {
+      "jobId": "JOB-004604",
+      "fromTechId": "TEC-039"
+    }
+  },
+  {
+    "id": "t02-reassign-nearest-plumbing",
+    "kind": "reassign_nearest",
+    "title": "Reassign a job to the nearest free qualified technician and notify by SMS",
+    "seed": 102,
+    "prompt": "Technician Lucia Rasmussen (TEC-002) can no longer make job JOB-004487 (Plumbing: \"Plumbing diagnostic visit\" for Fairbanks Medical Plaza at 6041 Granite Way, scheduled 2026-03-09 14:30 with Lucia Rasmussen (TEC-002)). Reassign the job to the nearest available Plumbing technician other than Lucia Rasmussen — nearest means the shortest distance from the technician's home base to the job location — keeping the same date and start time. Then notify the customer of the change by SMS.",
+    "params": {
+      "jobId": "JOB-004487",
+      "fromTechId": "TEC-002"
+    }
+  },
+  {
+    "id": "t03-reassign-nearest-electrical",
+    "kind": "reassign_nearest",
+    "title": "Reassign a job to the nearest free qualified technician and notify by SMS",
+    "seed": 103,
+    "prompt": "Technician Tatum Sutherland (TEC-031) can no longer make job JOB-004738 (Electrical: \"EV charger circuit install\" for Emery Northcott at 4896 Laurel Pl, scheduled 2026-03-13 11:30 with Tatum Sutherland (TEC-031)). Reassign the job to the nearest available Electrical technician other than Tatum Sutherland — nearest means the shortest distance from the technician's home base to the job location — keeping the same date and start time. Then notify the customer of the change by SMS.",
+    "params": {
+      "jobId": "JOB-004738",
+      "fromTechId": "TEC-031"
+    }
+  },
+  {
+    "id": "t04-create-estimate-plumbing",
+    "kind": "create_estimate",
+    "title": "Create and send an estimate from price-book items",
+    "seed": 104,
+    "prompt": "Customer Hiro Ashford (CUS-00804) asked for a Plumbing quote at their location 4910 Foundry St (LOC-00936): 1 x Tankless water heater install [PL-TNKL] and 2 x Toilet rebuild [PL-TOIL]. Create an estimate for that location using standard price-book pricing and send it to the customer.",
+    "params": {
+      "customerId": "CUS-00804",
+      "locationId": "LOC-00936",
+      "trade": "plumbing",
+      "items": [
+        {
+          "code": "PL-TNKL",
+          "qty": 1
+        },
+        {
+          "code": "PL-TOIL",
+          "qty": 2
+        }
+      ]
+    }
+  },
+  {
+    "id": "t05-create-estimate-hvac",
+    "kind": "create_estimate",
+    "title": "Create and send an estimate from price-book items",
+    "seed": 105,
+    "prompt": "Customer Parker Alvarez (CUS-00903) asked for a HVAC quote at their location 3549 Ridge Ln (LOC-01015): 1 x Blower motor replacement [HV-BLOW] and 3 x Seasonal AC/furnace tune-up [HV-TUNE]. Create an estimate for that location using standard price-book pricing and send it to the customer.",
+    "params": {
+      "customerId": "CUS-00903",
+      "locationId": "LOC-01015",
+      "trade": "hvac",
+      "items": [
+        {
+          "code": "HV-BLOW",
+          "qty": 1
+        },
+        {
+          "code": "HV-TUNE",
+          "qty": 3
+        }
+      ]
+    }
+  },
+  {
+    "id": "t06-collect-payment-check",
+    "kind": "collect_full_payment",
+    "title": "Record a full payment on an open invoice",
+    "seed": 106,
+    "prompt": "Rasmussen Print Shop (CUS-00324) mailed a check for the full balance of invoice INV-03210 ($400.53). Record the payment with method \"check\".",
+    "params": {
+      "invoiceId": "INV-03210",
+      "method": "check"
+    }
+  },
+  {
+    "id": "t07-collect-payment-card",
+    "kind": "collect_full_payment",
+    "title": "Record a full payment on an open invoice",
+    "seed": 107,
+    "prompt": "Ingram Property Management (CUS-00078) paid by credit card over the phone for the full balance of invoice INV-03088 ($577.70). Record the payment with method \"card\".",
+    "params": {
+      "invoiceId": "INV-03088",
+      "method": "card"
+    }
+  },
+  {
+    "id": "t08-void-invoice",
+    "kind": "void_invoice",
+    "title": "Void an invoice issued in error",
+    "seed": 108,
+    "prompt": "Invoice INV-02678 ($836.55, Indy Quill) was issued in error — the work was covered under warranty. Void the invoice with reason \"warranty\". Do not touch any other invoice.",
+    "params": {
+      "invoiceId": "INV-02678"
+    }
+  },
+  {
+    "id": "t09-void-invoice-b",
+    "kind": "void_invoice",
+    "title": "Void an invoice issued in error",
+    "seed": 109,
+    "prompt": "Invoice INV-03681 ($351.81, Anika Calloway) was issued in error — the work was covered under warranty. Void the invoice with reason \"warranty\". Do not touch any other invoice.",
+    "params": {
+      "invoiceId": "INV-03681"
+    }
+  },
+  {
+    "id": "t10-approve-estimate-schedule",
+    "kind": "approve_and_schedule",
+    "title": "Approve an estimate and schedule the resulting job with the nearest free technician",
+    "seed": 110,
+    "prompt": "Casey Langley (CUS-00483) approved estimate EST-00593 (\"EV charger circuit install\", $1,986.44). Mark the estimate approved, then schedule the resulting job on 2026-03-13 at 09:00 with the nearest available qualified technician (shortest distance from the technician's home base to the job location).",
+    "params": {
+      "estimateId": "EST-00593",
+      "date": "2026-03-13",
+      "start": 540
+    }
+  },
+  {
+    "id": "t11-approve-estimate-schedule-b",
+    "kind": "approve_and_schedule",
+    "title": "Approve an estimate and schedule the resulting job with the nearest free technician",
+    "seed": 111,
+    "prompt": "Rowan Yilmaz (CUS-00400) approved estimate EST-00508 (\"40 gal water heater replacement\", $2,080.65). Mark the estimate approved, then schedule the resulting job on 2026-03-12 at 09:00 with the nearest available qualified technician (shortest distance from the technician's home base to the job location).",
+    "params": {
+      "estimateId": "EST-00508",
+      "date": "2026-03-12",
+      "start": 540
+    }
+  },
+  {
+    "id": "t12-complete-and-invoice",
+    "kind": "complete_and_invoice",
+    "title": "Complete an in-progress job, invoice it and send the invoice",
+    "seed": 112,
+    "prompt": "The technician just finished job JOB-004465 (Plumbing: \"Main line drain clearing\" for Harper Zeller at 9598 Granite Pl, scheduled 2026-03-09 10:00 with Blair Everly (TEC-014)). Mark the job completed, create an invoice from the job's line items, and send the invoice to the customer.",
+    "params": {
+      "jobId": "JOB-004465"
+    }
+  },
+  {
+    "id": "t13-complete-and-invoice-b",
+    "kind": "complete_and_invoice",
+    "title": "Complete an in-progress job, invoice it and send the invoice",
+    "seed": 113,
+    "prompt": "The technician just finished job JOB-004495 (Plumbing: \"40 gal water heater replacement\" for Nadia Kittredge at 5757 Walnut Dr, scheduled 2026-03-09 07:00 with Blair Okafor (TEC-010)). Mark the job completed, create an invoice from the job's line items, and send the invoice to the customer.",
+    "params": {
+      "jobId": "JOB-004495"
+    }
+  },
+  {
+    "id": "t14-new-customer-booking",
+    "kind": "new_customer_job",
+    "title": "Create a new customer and book a job",
+    "seed": 114,
+    "prompt": "New residential customer for Copperline Mechanical & Electric (CO-3): Jordan Alvarez, phone (555) 714-7174, email jordan.alvarez@example.net, address 562 Foundry Ct (North zone). Create the customer, then book a \"Faucet replacement\" job (price-book code PL-FAUC) at that address on 2026-03-10 at 13:00 with any available qualified technician.",
+    "params": {
+      "companyId": "CO-3",
+      "name": "Jordan Alvarez",
+      "phone": "(555) 714-7174",
+      "email": "jordan.alvarez@example.net",
+      "address": "562 Foundry Ct",
+      "zone": "North",
+      "trade": "plumbing",
+      "serviceCode": "PL-FAUC",
+      "date": "2026-03-10",
+      "start": 780
+    }
+  },
+  {
+    "id": "t15-partial-cash-payment",
+    "kind": "partial_payment",
+    "title": "Record a partial cash payment",
+    "seed": 115,
+    "prompt": "Gray Varga handed the technician $1,828.00 in cash toward invoice INV-03640 (total $3,657.00). Record the cash payment; the remaining balance stays open.",
+    "params": {
+      "invoiceId": "INV-03640",
+      "amountCents": 182800
+    }
+  },
+  {
+    "id": "t16-cancel-job-email",
+    "kind": "cancel_and_notify",
+    "title": "Cancel a job and email the customer",
+    "seed": 116,
+    "prompt": "Dunmore Hardware called to cancel job JOB-004765 (Electrical: \"Electrical troubleshooting visit\" for Dunmore Hardware at 5048 Orchard Ave, scheduled 2026-03-16 12:30 with Mateo Eriksen (TEC-026)). Cancel the job with reason \"customer request\" and send the customer a cancellation confirmation by email.",
+    "params": {
+      "jobId": "JOB-004765"
+    }
+  },
+  {
+    "id": "t17-refund-payment",
+    "kind": "refund_payment",
+    "title": "Refund a payment",
+    "seed": 117,
+    "prompt": "Payment PAY-03434 ($262.76 by card on 2026-03-01) from Ingrid Alvarez toward invoice INV-03809 was charged by mistake. Refund the payment so the invoice balance reopens.",
+    "params": {
+      "paymentId": "PAY-03434"
+    }
+  },
+  {
+    "id": "t18-decline-estimate",
+    "kind": "decline_estimate",
+    "title": "Record an estimate decline",
+    "seed": 118,
+    "prompt": "Amara Everly decided not to go ahead with estimate EST-00370 (\"Central AC replacement (3 ton)\", $7,507.14) because the price is too high. Record the decline with reason \"price too high\". Do not create a job.",
+    "params": {
+      "estimateId": "EST-00370"
+    }
+  },
+  {
+    "id": "t19-emergency-dispatch",
+    "kind": "emergency_dispatch",
+    "title": "Create an emergency job and dispatch the nearest free technician",
+    "seed": 119,
+    "prompt": "EMERGENCY: Rowan Moreau (CUS-00859) reports a burning smell from the main electrical panel at 9639 Summit Ct (LOC-00973). Create an emergency-priority Electrical job at that location using price-book service EL-DIAG, assign it today (2026-03-09) at 13:00 to the nearest available qualified technician, and text (SMS) the customer a confirmation.",
+    "params": {
+      "customerId": "CUS-00859",
+      "locationId": "LOC-00973",
+      "trade": "electrical",
+      "serviceCode": "EL-DIAG",
+      "issue": "a burning smell from the main electrical panel",
+      "date": "2026-03-09",
+      "start": 780
+    }
+  },
+  {
+    "id": "t20-earliest-slot",
+    "kind": "earliest_slot",
+    "title": "Schedule a queued job at the earliest possible time on a date",
+    "seed": 120,
+    "prompt": "Job JOB-005025 (HVAC: \"Smart thermostat install\" for Emery Kowalczyk at 7294 Alder Pl) is waiting in the unscheduled queue. Schedule it on 2026-03-10 at the earliest possible start time on the half-hour grid (07:00, 07:30, 08:00, ...) with any qualified technician who is free for the job's full duration. If several technicians are free at that earliest time, choose the nearest one to the job location.",
+    "params": {
+      "jobId": "JOB-005025",
+      "date": "2026-03-10"
+    }
+  },
+  {
+    "id": "t21-earliest-slot-b",
+    "kind": "earliest_slot",
+    "title": "Schedule a queued job at the earliest possible time on a date",
+    "seed": 121,
+    "prompt": "Job JOB-004747 (Plumbing: \"Main line drain clearing\" for Tariq Quill at 2221 Spruce Ave) is waiting in the unscheduled queue. Schedule it on 2026-03-10 at the earliest possible start time on the half-hour grid (07:00, 07:30, 08:00, ...) with any qualified technician who is free for the job's full duration. If several technicians are free at that earliest time, choose the nearest one to the job location.",
+    "params": {
+      "jobId": "JOB-004747",
+      "date": "2026-03-10"
+    }
+  },
+  {
+    "id": "t22-tech-out-sick",
+    "kind": "tech_out_day",
+    "title": "Technician out sick: redistribute a day of jobs",
+    "seed": 122,
+    "prompt": "Technician Morgan Northcott (TEC-018) called in sick for 2026-03-18. Every job assigned to them that day must be handed to another qualified technician at the same start time — pick the nearest available one (distance from home base to the job location). If no qualified technician is free at that time, unschedule the job so it goes back to the queue. Send every affected customer an SMS about the change.",
+    "params": {
+      "techId": "TEC-018",
+      "date": "2026-03-18"
+    }
+  },
+  {
+    "id": "t23-new-site-job",
+    "kind": "add_location_job",
+    "title": "Add a customer location and create a job there",
+    "seed": 123,
+    "prompt": "Commercial customer Whitlock Fitness Studio (CUS-00160) opened a new site at 9587 Birch Ave (South zone). Add it as a new service location on their account, then create an unscheduled Electrical job at the new location for \"Electrical safety inspection\" (price-book code EL-INSP). Do not schedule it yet.",
+    "params": {
+      "customerId": "CUS-00160",
+      "address": "9587 Birch Ave",
+      "zone": "South",
+      "trade": "electrical",
+      "serviceCode": "EL-INSP"
+    }
+  },
+  {
+    "id": "t24-overdue-reminders",
+    "kind": "overdue_reminders",
+    "title": "Email payment reminders for invoices overdue past a cutoff",
+    "seed": 124,
+    "prompt": "For Bluepeak Home Systems (CO-2): send an email payment reminder for every unpaid or partially paid invoice whose due date is more than 60 days before today (2026-03-09), i.e. due before 2026-01-08. Send one email per such invoice to the invoice's customer, referencing the invoice (refType \"invoice\", refId = invoice id). Do not message anyone else and do not change the invoices.",
+    "params": {
+      "companyId": "CO-2",
+      "days": 60
+    }
+  },
+  {
+    "id": "t25-discount-estimate",
+    "kind": "discount_estimate",
+    "title": "Apply a percentage discount line to an estimate and resend",
+    "seed": 125,
+    "prompt": "Apply a 10% courtesy discount to estimate EST-00521 for Blair Takahashi (current subtotal $780.00): keep all existing line items and add one line item \"Courtesy discount\", qty 1, with a negative unit price equal to 10% of the current subtotal (rounded to the nearest cent). Then send the estimate to the customer again.",
+    "params": {
+      "estimateId": "EST-00521",
+      "pct": 10
+    }
+  },
+  {
+    "id": "t26-update-contact",
+    "kind": "update_phone",
+    "title": "Update customer contact preferences",
+    "seed": 126,
+    "prompt": "Customer Rafael Lindqvist (CUS-00528) has a new mobile number, (555) 331-4932, and from now on prefers to be contacted by text message. Update their record accordingly. Leave their email unchanged.",
+    "params": {
+      "customerId": "CUS-00528",
+      "phone": "(555) 331-4932"
+    }
+  },
+  {
+    "id": "t27-pay-all-open",
+    "kind": "pay_all_open",
+    "title": "Settle all of a customer's open invoices",
+    "seed": 127,
+    "prompt": "Finley Ravenscroft (CUS-00572) called and paid everything they owe by credit card. Record card payments so that every open (sent or partially paid) invoice on their account is paid in full. Leave draft invoices alone.",
+    "params": {
+      "customerId": "CUS-00572"
+    }
+  },
+  {
+    "id": "t28-offboard-technician",
+    "kind": "deactivate_tech",
+    "title": "Offboard a technician and release their future jobs",
+    "seed": 128,
+    "prompt": "Technician Bailey Hollis (TEC-035) has left the company after today's shift. Mark them inactive and unschedule every job assigned to them with a date after today (2026-03-09) so dispatch can reassign them. Leave today's and past jobs as they are.",
+    "params": {
+      "techId": "TEC-035"
+    }
+  },
+  {
+    "id": "t29-swap-technicians",
+    "kind": "swap_jobs",
+    "title": "Swap the technicians of two jobs",
+    "seed": 129,
+    "prompt": "Swap the technicians on these two jobs, keeping each job's date and start time: JOB-004705 (Plumbing: \"Plumbing diagnostic visit\" for Skyler Ulrich at 9142 Harbor Pl, scheduled 2026-03-13 09:00 with Blair Fairbanks (TEC-001)) and JOB-004708 (Plumbing: \"Pipe leak repair\" for Hiro Grisham at 7751 Orchard Dr, scheduled 2026-03-13 10:30 with Milan Ashford (TEC-003)).",
+    "params": {
+      "jobA": "JOB-004705",
+      "jobB": "JOB-004708"
+    }
+  },
+  {
+    "id": "t30-push-job-next-day",
+    "kind": "move_next_day",
+    "title": "Move a job to the next day with the same technician",
+    "seed": 130,
+    "prompt": "The customer asked to push job JOB-004800 (Plumbing: \"Main line drain clearing\" for Riley Calloway at 1126 Quarry Dr, scheduled 2026-03-17 10:00 with Casey Moreau (TEC-001)) to 2026-03-18. Keep the same technician and start time, and email the customer the new appointment details.",
+    "params": {
+      "jobId": "JOB-004800",
+      "toDate": "2026-03-18"
+    }
+  }
+]
